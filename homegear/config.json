@@ -2,7 +2,7 @@
     "name": "Homegear",
     "version": "0.8.x",
     "slug": "homegear",
-    "description": "Homegear as a Hassio add-on",
+    "description": "Homegear nightly as a Hassio add-on",
     "startup": "before",
     "boot": "auto",
     "gpio": true,
@@ -17,7 +17,11 @@
         "SYS_RAWIO"
     ],
     "arch": [
-        "armhf"
+        "aarch64",
+        "amd64",
+        "armhf",
+        "armv7",
+        "i386"
     ],
     "map": [
         "config:rw",
