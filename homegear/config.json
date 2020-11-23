@@ -3,7 +3,8 @@
     "version": "0.8.x",
     "slug": "homegear",
     "description": "Homegear nightly as a Hassio add-on",
-    "startup": "before",
+    "startup": "services",
+    "webui": "http://[HOST]:[PORT:2001]/admin",
     "boot": "auto",
     "gpio": true,
     "ports": {
@@ -16,6 +17,7 @@
         "SYS_ADMIN",
         "SYS_RAWIO"
     ],
+    "timeout": 60, 
     "arch": [
         "aarch64",
         "amd64",
@@ -30,11 +32,15 @@
     "host_network": true,
     "environment": {
     },
+    "services": [
+        need:mqtt
+    ],
     "options": {
     },
     "schema": {
     },
     "devices": [
         "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-    ]
+    ],
+    "watchdog": "http://[HOST]:[PORT:2001]/admin"
 }
