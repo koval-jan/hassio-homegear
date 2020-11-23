@@ -113,11 +113,11 @@ mkdir -p /var/run/homegear
 chown ${USER}:${USER} /var/run/homegear
 
 /config/homegear/homegear-start.sh
-/usr/bin/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
+/usr/bin/homegear -c /config/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear.pid &
 sleep 5
-/usr/bin/homegear-management -p /var/run/homegear/homegear-management.pid &
-/usr/bin/homegear-webssh -u ${USER} -g ${USER} -p /var/run/homegear/homegear-webssh.pid &
-/usr/bin/homegear-influxdb -u ${USER} -g ${USER} -p /var/run/homegear/homegear-influxdb.pid &
+/usr/bin/homegear-management -c /config/homegear -p /var/run/homegear/homegear-management.pid &
+/usr/bin/homegear-webssh -c /config/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear-webssh.pid &
+/usr/bin/homegear-influxdb -c /config/homegear -u ${USER} -g ${USER} -p /var/run/homegear/homegear-influxdb.pid &
 tail -f /share/homegear/log/homegear-webssh.log &
 tail -f /share/homegear/log/homegear-flows.log &
 tail -f /share/homegear/log/homegear-scriptengine.log &
