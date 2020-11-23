@@ -105,6 +105,7 @@ find /share/homegear/data/scripts -type f -exec chmod 550 {} \;
 find /config/homegear -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
 find /share/homegear/data -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
 
+sed -i 's"/usr/bin/homegear"/usr/bin/homegear -c /config/homegear"' /config/homegear/homegear-start.sh
 
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
