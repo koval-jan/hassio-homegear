@@ -1,0 +1,36 @@
+{
+    "name": "Homegear",
+    "version": "0.8.x",
+    "slug": "homegear",
+    "description": "Homegear as a Hassio add-on",
+    "startup": "before",
+    "boot": "auto",
+    "gpio": true,
+    "ports": {
+        "2001/tcp": 2001
+    },
+    "ports_description": {
+        "2001/tcp": "HomeGear UI"
+    },
+    "privileged": [
+        "SYS_ADMIN",
+        "SYS_RAWIO"
+    ],
+    "arch": [
+        "armhf"
+    ],
+    "map": [
+        "config:rw",
+        "share:rw"
+    ],
+    "host_network": true,
+    "environment": {
+    },
+    "options": {
+    },
+    "schema": {
+    },
+    "devices": [
+        "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
+    ]
+}
