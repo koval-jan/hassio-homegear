@@ -33,7 +33,7 @@
     "environment": {
     },
     "services": [
-        "need:mqtt"
+        "mqtt:need"
     ],
     "options": {
     },
