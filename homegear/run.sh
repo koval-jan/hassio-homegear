@@ -60,12 +60,15 @@ else
 	cp -a /var/lib/homegear.data/node-blue/nodes/* /share/homegear/data/node-blue/nodes/
 	[ $? -ne 0 ] && echo "Could not copy nodes to \"homegear.data/node-blue/nodes\". Please check the permissions on this directory and make sure it is writeable."
 
-	cd /share/homegear/data/admin-ui; ls /share/homegear/data/admin-ui/ | grep -v translations | xargs rm -Rf
 	mkdir -p /var/lib/homegear.data/admin-ui
-	cp -a /var/lib/homegear.data/admin-ui/* /share/homegear/data/admin-ui/
-	[ ! -f /share/homegear/data/admin-ui/.env ] && cp -a /var/lib/homegear.data/admin-ui/.env /share/homegear/data/admin-ui/
-	cp -a /var/lib/homegear.data/admin-ui/.version /share/homegear/data/admin-ui/
-	[ $? -ne 0 ] && echo "Could not copy admin UI to \"homegear.data/admin-ui\". Please check the permissions on this directory and make sure it is writeable."
+  if ! cmp -s "/var/lib/homegear.data/admin-ui/.version" "/share/homegear/data/admin-ui/.version"; then
+      rm -f /share/homegear/data/.init
+	    cd /share/homegear/data/admin-ui; ls /share/homegear/data/admin-ui/ | grep -v translations | xargs rm -Rf
+	    cp -a /var/lib/homegear.data/admin-ui/* /share/homegear/data/admin-ui/
+	    [ ! -f /share/homegear/data/admin-ui/.env ] && cp -a /var/lib/homegear.data/admin-ui/.env /share/homegear/data/admin-ui/
+	    cp -a /var/lib/homegear.data/admin-ui/.version /share/homegear/data/admin-ui/
+	    [ $? -ne 0 ] && echo "Could not copy admin UI to \"homegear.data/admin-ui\". Please check the permissions on this directory and make sure it is writeable."
+  fi
 fi
 rm -f /share/homegear/data/homegear_updated
 
@@ -103,9 +106,12 @@ find /share/homegear/data/scripts -type f -exec chmod 550 {} \;
 # reconfigure folders
 if ! [ -f /config/homegear/.init ]; then
     find /config/homegear -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
-    find /share/homegear/data -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
 
     touch /config/homegear/.init
+fi
+if ! [ -f /share/homegear/data/.init ]; then
+    find /share/homegear/data -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
+    touch /share/homegear/data/.init
 fi
 
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
