@@ -1,6 +1,6 @@
 {
     "name": "Homegear",
-    "version": "0.8.x",
+    "version": "0.8.0-3422",
     "slug": "homegear",
     "image": "ghcr.io/koval-jan/homegear:0.8.0-3422"
     "description": "Homegear nightly as Hassio add-on",
