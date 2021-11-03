@@ -1,8 +1,8 @@
 {
     "name": "Homegear",
-    "version": "0.8.0-3422",
+    "version": "0.8.0.3422",
     "slug": "homegear",
-    "image": "ghcr.io/koval-jan/homegear:0.8.0-3422",
+    "image": "ghcr.io/koval-jan/homegear:0.8.0.3422",
     "description": "Homegear nightly as Hassio add-on",
     "startup": "services",
     "webui": "http://[HOST]:[PORT:8080]/admin",
@@ -32,7 +32,7 @@
     "environment": {
         "PUID": "1000",
         "PGID": "1000",
-        "S6_SERVICES_GRACETIME": 50000,
+        "S6_SERVICES_GRACETIME": "50000",
         "TZ": "Europe/Bratislava"
     },
     "services": [
