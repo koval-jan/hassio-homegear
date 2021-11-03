@@ -8,7 +8,7 @@ Image uses s6-overlay with cont-init.d steps and several services.
 To build new base image run: 
 
 ```bash
-base/build.sh
+homegear/base/build.sh
 ```
 
 
