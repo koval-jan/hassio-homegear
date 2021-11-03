@@ -2,7 +2,7 @@
     "name": "Homegear",
     "version": "0.8.0.3422",
     "slug": "homegear",
-    "image": "ghcr.io/koval-jan/homegear",
+    "image": "kovaljan/homegear",
     "description": "Homegear nightly as Hassio add-on",
     "startup": "services",
     "webui": "http://[HOST]:[PORT:8080]/admin",
