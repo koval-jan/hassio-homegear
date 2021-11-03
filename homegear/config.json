@@ -10,7 +10,8 @@
     "gpio": true,
     "ports": {
         "2001/tcp": 2001,
-        "8080/tcp": 8080
+        "80/tcp": 8080,
+        "443/tcp": 8443
     },
     "ports_description": {
         "2001/tcp": "HomeGear RPC",
