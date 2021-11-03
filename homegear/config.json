@@ -5,20 +5,20 @@
     "image": "kovaljan/homegear",
     "description": "Homegear nightly as Hassio add-on",
     "startup": "services",
-    "webui": "http://[HOST]:[PORT:8080]/admin",
+    "webui": "http://[HOST]:[PORT:2001]/admin",
     "boot": "auto",
     "init": false,
     "hassio_api": true,
     "hassio_role": "default",
     "ports": {
         "2001/tcp": 2001,
-        "80/tcp": 8080,
-        "443/tcp": 8443
+        "2002/tcp": null,
+        "2003/tcp": null,
+        "80/tcp": null,
+        "443/tcp": null
     },
     "ports_description": {
-        "2001/tcp": "HomeGear RPC",
-        "80/tcp": "HomeGear WEB",
-        "443/tcp": "HomeGear SSL WEB"
+        "2001/tcp": "HomeGear RPC/WEB port"
     },
     "timeout": 60,
     "arch": [
@@ -41,5 +41,5 @@
     },
     "schema": {
     },
-    "watchdog": "http://[HOST]:[PORT:8080]/admin"
+    "watchdog": "http://[HOST]:[PORT:2001]/admin"
 }
