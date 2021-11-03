@@ -7,7 +7,9 @@
     "startup": "services",
     "webui": "http://[HOST]:[PORT:8080]/admin",
     "boot": "auto",
-    "gpio": true,
+    "init": false,
+    "hassio_api": true,
+    "hassio_role": "default",
     "ports": {
         "2001/tcp": 2001,
         "80/tcp": 8080,
@@ -15,12 +17,9 @@
     },
     "ports_description": {
         "2001/tcp": "HomeGear RPC",
-        "8080/tcp": "HomeGear WEB"
+        "80/tcp": "HomeGear WEB",
+        "443/tcp": "HomeGear SSL WEB"
     },
-    "privileged": [
-        "SYS_ADMIN",
-        "SYS_RAWIO"
-    ],
     "timeout": 60,
     "arch": [
         "amd64"
@@ -29,7 +28,6 @@
         "config:rw",
         "share:rw"
     ],
-    "host_network": true,
     "environment": {
         "PUID": "1000",
         "PGID": "1000",
@@ -43,8 +41,5 @@
     },
     "schema": {
     },
-    "devices": [
-        "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-    ],
     "watchdog": "http://[HOST]:[PORT:8080]/admin"
 }
