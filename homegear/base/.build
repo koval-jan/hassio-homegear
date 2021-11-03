@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export VERSION="0.8.0-3422"
+export TAG="ghcr.io/koval-jan/homegear:$VERSION"

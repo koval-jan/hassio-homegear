@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+
+#chown -R root:root /config/homegear
+if compgen -G "/config/homegear/*.key"; then
+   chown homegear:homegear /config/homegear/*.key
+fi
+if compgen -G "/config/homegear/*.pem"; then
+   chown homegear:homegear /config/homegear/*.pem
+fi
+if [[ -f /config/homegear/nodeBlueCredentialKey.txt ]]; then
+   chown homegear:homegear /config/homegear/nodeBlueCredentialKey.txt
+fi
+if compgen -G "/config/homegear/ca/private/*.key" > /dev/null; then
+   chown homegear:homegear /config/homegear/ca/private/*.key
+fi
+find /config/homegear -type d -exec chmod 755 {} \;
+chown -R homegear:homegear /share/homegear/log /share/homegear/data
+find /share/homegear/log -type d -exec chmod 750 {} \;
+find /share/homegear/log -type f -exec chmod 640 {} \;
+find /share/homegear/data -type d -exec chmod 750 {} \;
+find /share/homegear/data -type f -exec chmod 640 {} \;
+find /share/homegear/data/scripts -type f -exec chmod 550 {} \;

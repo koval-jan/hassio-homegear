@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bash
+
+if ! [[ -f /config/homegear/dh1024.pem ]]; then
+	openssl genrsa -out /config/homegear/homegear.key 2048
+	openssl req -batch -new -key /config/homegear/homegear.key -out /config/homegear/homegear.csr
+	openssl x509 -req -in /config/homegear/homegear.csr -signkey /config/homegear/homegear.key -out /config/homegear/homegear.crt
+	rm /config/homegear/homegear.csr
+	chmod 400 /config/homegear/homegear.key
+	openssl dhparam -check -text -5 -out /config/homegear/dh1024.pem 1024
+	chmod 400 /config/homegear/dh1024.pem
+fi

@@ -1,0 +1,43 @@
+version: '3'
+services:
+  homegear:
+    container_name: homegear
+#    devices:
+# Anpassen je nach angeschlossenem Device
+#    - /dev/ttyAMA0:/dev/ttyAMA0
+#    - /dev/ttyACM0:/dev/ttyACM0
+#    command: /bin/bash -c "tail -F anything"
+#    entrypoint: ["/bin/bash", "-c", "tail -F anything"]
+    environment:
+# $(id -u) und $(id -g) müssen von Hand eingetragen werden da docker-compose nicht automatisch auswertet
+      PUID: '1000'
+      PGID: '1000'
+      S6_SERVICES_GRACETIME: 50000
+      TZ: Europe/Bratislava
+    hostname: homegear
+    image: homegear:latest
+    labels:
+      docker.group: homegear
+    ports:
+    - protocol: tcp
+      published: 8080
+      target: 80
+    - protocol: tcp
+      published: 8443
+      target: 443
+    - protocol: tcp
+      published: 2001
+      target: 2001
+    - protocol: tcp
+      published: 2002
+      target: 2002
+    - protocol: tcp
+      published: 2003
+      target: 2003
+    restart: unless-stopped
+    stop_grace_period: 60s
+    volumes:
+      - ./data/config:/config/homegear:Z
+      - ./data/data:/share/homegear/data:Z
+      - ./data/log:/share/homegear/log:Z
+      - /sys:/sys:rw

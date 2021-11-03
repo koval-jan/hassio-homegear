@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+touch /share/homegear/log/homegear.log
+touch /share/homegear/log/homegear-webssh.log
+touch /share/homegear/log/homegear-flows.log
+touch /share/homegear/log/homegear-scriptengine.log
+touch /share/homegear/log/homegear-management.log
+touch /share/homegear/log/homegear-influxdb.log

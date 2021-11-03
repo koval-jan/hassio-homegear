@@ -1,0 +1,62 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p /config/homegear
+mkdir -p /share/homegear/data
+mkdir -p /share/homegear/log
+mkdir -p /var/run/homegear
+
+chown homegear:homegear /var/run/homegear
+chown homegear:homegear /config/homegear
+chown homegear:homegear /share/homegear/data
+chown homegear:homegear /share/homegear/log
+
+if ! [ "$(ls -A /config/homegear)" ]; then
+    cp -a /etc/homegear.config/* /config/homegear/
+fi
+
+if [ ! -e /config/homegear/nodeBlueCredentialKey.txt ]; then
+	tr -dc A-Za-z0-9 < /dev/urandom | head -c 43 > /config/homegear/nodeBlueCredentialKey.txt
+	chmod 400 /config/homegear/nodeBlueCredentialKey.txt
+fi
+
+if ! [ "$(ls -A /share/homegear/data)" ]; then
+    cp -a /var/lib/homegear.data/* /share/homegear/data
+else
+    rm -Rf /share/homegear/data/modules/*
+    mkdir -p /var/lib/homegear.data/modules
+    cp -a /var/lib/homegear.data/modules/* /share/homegear/data/modules/
+    (( $? != 0 )) && echo "Could not copy modules to \"homegear.data/modules/\". Please check the permissions on this directory and make sure it is writeable."
+
+    rm -Rf /share/homegear/data/flows/nodes/*
+    mkdir -p /var/lib/homegear.data/node-blue/nodes
+    cp -a /var/lib/homegear.data/node-blue/nodes/* /share/homegear/data/node-blue/nodes/
+    (( $? != 0 )) && echo "Could not copy nodes to \"homegear.data/node-blue/nodes\". Please check the permissions on this directory and make sure it is writeable."
+
+    rm -Rf /share/homegear/data/node-blue/node-red
+    cp -a /var/lib/homegear.data/node-blue/node-red /share/homegear/data/node-blue/
+	  (( $? != 0 )) && echo "Could not copy nodes to \"homegear.data/node-blue/node-red\". Please check the permissions on this directory and make sure it is writeable."
+
+    rm -Rf /share/homegear/data/node-blue/www
+    cp -a /var/lib/homegear.data/node-blue/www /share/homegear/data/node-blue/
+    (( $? != 0 )) && echo "Could not copy Node-BLUE frontend to \"homegear.data/node-blue/www\". Please check the permissions on this directory and make sure it is writeable." 
+
+    mkdir -p /var/lib/homegear.data/admin-ui
+    if ! cmp -s "/var/lib/homegear.data/admin-ui/.version" "/share/homegear/data/admin-ui/.version"; then
+        rm -f /share/homegear/data/.init
+        cd /share/homegear/data/admin-ui; ls /share/homegear/data/admin-ui/ | grep -v translations | xargs rm -Rf
+
+        mkdir -p /var/lib/homegear.data/admin-ui
+        cp -a /var/lib/homegear.data/admin-ui/* /share/homegear/data/admin-ui/
+        [ ! -f /share/homegear/data/admin-ui/.env ] && cp -a /var/lib/homegear.data/admin-ui/.env /share/homegear/data/admin-ui/
+        cp -a /var/lib/homegear.data/admin-ui/.version /share/homegear/data/admin-ui/
+        (( $? != 0 )) && echo "Could not copy admin UI to \"homegear.data/admin-ui\". Please check the permissions on this directory and make sure it is writeable."
+    fi
+fi
+rm -f /share/homegear/data/homegear_updated
+
+# if [[ -d /share/homegear/data/node-blue/node-red ]]; then
+# 	  cd /share/homegear/data/node-blue/node-red
+#     . "$NVM_DIR/nvm.sh"
+#     nvm alias default "${NODE_VERSION}"
+# 	  npm install --python=/usr/bin/python2.7
+# fi
