@@ -1,14 +1,15 @@
 #!/usr/bin/with-contenv bash
 
 # reconfigure folders
-if ! [ -f /config/homegear/.init ]; then
-    find /config/homegear -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
+if [[ ! -f /config/homegear/.init ]]; then
+    find /config/homegear -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} \;
 
     touch /config/homegear/.init
 fi
 
-if ! [ -f /share/homegear/data/.init ]; then
-    find /share/homegear/data -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} +
+if [[ ! -f /share/homegear/data/.init ]]; then
+    find /share/homegear/data -type f -exec sed -i 's"/etc/homegear"/config/homegear"g; s"/var/lib/homegear"/share/homegear/data"g; s"/var/log/homegear"/share/homegear/log"g' {} \;
+
     touch /share/homegear/data/.init
 fi
 

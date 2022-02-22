@@ -1,6 +1,6 @@
 # Taken from https://github.com/Homegear/Homegear-Docker/blob/master/rpi-stable/Dockerfile
 #FROM homegear/homegear:nightly
-FROM homegear/homegear@sha256:601acbc7fe2c64782b3f90df5c531e9f748e203b9ab243064de5549e9297af98
+FROM homegear/homegear@sha256:9a8c6f57d1413541f354dcebb58a065ed58e01c7700c46bfc39ead11ad39cb21
 MAINTAINER Jan Koval
 
 COPY ["image-data/", "/"]
@@ -10,7 +10,7 @@ ENV S6_VERSION v2.2.0.3
 ENV S6_CHECKSUM e49a47715f5f187928c98e6eaba41a39
 ENV NVM_VERSION v0.39.0
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 14.18.1
+ENV NODE_VERSION 16.13.1
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 

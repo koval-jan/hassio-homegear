@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-#chown -R root:root /config/homegear
+chown -R homegear:homegear /config/homegear
 if compgen -G "/config/homegear/*.key"; then
    chown homegear:homegear /config/homegear/*.key
 fi
