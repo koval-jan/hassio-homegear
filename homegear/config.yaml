@@ -32,6 +32,4 @@ environment:
   TZ: Europe/Bratislava
 services:
   - mqtt:need
-options:
-schema:
 watchdog: "http://[HOST]:[PORT:2001]/admin"
